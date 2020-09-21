@@ -12,12 +12,18 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
+        // активация группы точек назначения topic
+        // (место приема асинхронных сообщений от всех клиентов:
+        // отправив сообщение в topic клиент продолжает работу,
+        // ничего не ожидая в ответ)
         config.enableSimpleBroker("/topic");
+        // объявление приставки к имени любой точки назначения
         config.setApplicationDestinationPrefixes("/app");
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+        // объявление конечной точки для подключения клиентов рассылки
         registry.addEndpoint("/gs-guide-websocket").withSockJS();
     }
 
